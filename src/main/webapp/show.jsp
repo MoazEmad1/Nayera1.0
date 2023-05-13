@@ -1,5 +1,4 @@
 <%@page import="java.io.PrintWriter"%>
-<%@page import="com.mysql.cj.Session"%>
 <%@page import="java.sql.ResultSet"%>
     <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.Statement"%>
@@ -18,7 +17,7 @@
 	<form action="showrooms" method="get">
     <% String name = "";%>
            <h1>Select the suitable room</h1>
-           <select name="<%= name %>">
+           <select name="name">
            <% 
        int i = 0;
        int count = Integer.parseInt(request.getParameter("count"));

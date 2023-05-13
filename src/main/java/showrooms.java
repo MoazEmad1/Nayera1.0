@@ -34,33 +34,27 @@ public class showrooms extends HttpServlet {
 		LocalDate enddate1 = LocalDate.parse(end);
 		int count = Integer.parseInt(request.getParameter("count"));
 		request.setAttribute("c",count);
-		request.getRequestDispatcher("show.jsp").forward(request, response);
 		
-		if(request.getParameter("search")!=null){
-			
-			if (enddate1.isBefore(startdate1) ) {
-			    request.setAttribute("errorMessage", "End date must be after start date.");
-			    request.getRequestDispatcher("required.jsp").include(request, response);
-			  
-			    
+		if (request.getParameter("search") != null) {
+
+			if (enddate1.isBefore(startdate1)) {
+				request.setAttribute("errorMessage", "End date must be after start date.");
+				request.getRequestDispatcher("required.jsp").include(request, response);
+
+			} else {
+				int f = db.search(request.getParameter("startdate"), request.getParameter("enddate"));
+				if (f == 1) {
+					request.getRequestDispatcher("required.jsp").include(request, response);
+					pw.println("THERE IS NO AVAILABELE ROOMS AT THIS DATE ");
+					pw.println("YOU CAN CHOOSE ANOHER DATE");
+				}
 			}
-			else {
-			int f = db.search(request.getParameter("startdate"),request.getParameter("enddate"));
-			if(f==1)
-			{ request.getRequestDispatcher("required.jsp").include(request, response);
-		     pw.println("THERE IS NO AVAILABELE ROOMS AT THIS DATE ");
-		     pw.println("YOU CAN CHOOSE ANOHER DATE");}
-			}}
-			else {
-				 
-			     request.getRequestDispatcher("show.jsp").forward(request, response); 
-			}
-			}
-		
-				
-			
-			
+		} else {
+
+			request.getRequestDispatcher("show.jsp").forward(request, response);
 		}
-	
+	}
+
+}
 
 
