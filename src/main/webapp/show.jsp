@@ -47,3 +47,5 @@
 		<% i++; } %>
 		<input type="submit" name="checkout" value="Proceed to checkout">
 	</form>
+</body>
+</html>
