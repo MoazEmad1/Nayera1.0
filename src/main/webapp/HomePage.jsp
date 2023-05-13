@@ -13,6 +13,7 @@
 		<input type="submit" name="login" value="LOGIN">
 		<input type="submit" name="register" value="REGISTER">
 	</center>
+	
 </form>
 </body>
 </html>
