@@ -35,7 +35,7 @@ public class adminaction extends HttpServlet {
                   room room = new room(number, description, type, price, state);
 
 		        try {
-		            Class.forName("com.mysql.jdbc.Driver");
+		            Class.forName("com.mysql.cj.jdbc.Driver");
 		            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "");
 
 		            PreparedStatement pstmt = connection.prepareStatement("INSERT INTO room (number,description, type, price, state) VALUES (?, ?, ?, ?)");

@@ -44,6 +44,9 @@ public class showrooms extends HttpServlet {
 				pw.println("THERE IS NO AVAILABELE ROOMS AT THIS DATE ");
 				pw.println("YOU CAN CHOOSE ANOHER DATE");
 			}
+			else {
+				request.getRequestDispatcher("show.jsp").include(request, response);
+			}
 		}
 	}
 }

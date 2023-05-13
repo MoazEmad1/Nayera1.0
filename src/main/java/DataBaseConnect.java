@@ -13,7 +13,7 @@ public class DataBaseConnect {
 
 	public void storeCustomer(String name,String email, String password) {
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			con=DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root","");
 			PreparedStatement pstmt=con.prepareStatement("INSERT INTO customer(full_name,email,password,noofvisits) VALUES('"+name+"','"+email+"','"+password+"','0')");
 			
@@ -42,7 +42,7 @@ public class DataBaseConnect {
 	public int loginUser(String email,String password){
 		try {
 			
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			con=DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root","");
 			PreparedStatement pstmt =con.prepareStatement( "SELECT * FROM customer WHERE email = '" +email+ "' AND password = '" + password+ "'");
 			ResultSet result = pstmt.executeQuery();
@@ -74,18 +74,26 @@ public class DataBaseConnect {
 		return 0;
 	}
 	
-	@SuppressWarnings("finally")
 	public int search (String startdate , String enddate ){
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			con=DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root","");
-			PreparedStatement pstmt =con.prepareStatement( "SELECT state FROM boo WHERE startdate >='" +startdate+ "' AND enddate <= '" +enddate+ "'");
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			con=DriverManager.getConnection("jdbc:mysql://localhost:3306/test1","root","");
+			PreparedStatement pstmt =con.prepareStatement( "SELECT r.number\r\n"
+					+ "FROM rooms r\r\n"
+					+ "WHERE r.state = 'available'\r\n"
+					+ "AND NOT EXISTS (\r\n"
+					+ "  SELECT 1\r\n"
+					+ "  FROM booking b\r\n"
+					+ "  JOIN bookroom br ON b.id = br.bookingno\r\n"
+					+ "  WHERE r.number = br.roomno\r\n"
+					+ "  AND (b.startdate < "+startdate+" AND b.enddate > "+enddate+")\r\n"
+					+ ");");
 			ResultSet result = pstmt.executeQuery();
 		
 			if(result.next()) {
-				return 1;
+				return 0;
 			}
-			return 0;
+			return 1;
 				
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -100,7 +108,7 @@ public class DataBaseConnect {
 			} catch (final SQLException e) {
 				e.printStackTrace();
 			}
-			return 0;
+			return 1;
 		}}
 	
 		
