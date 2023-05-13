@@ -9,6 +9,7 @@
 <body>
 <form action="userServlet" method="get">
 	<center>
+	
 	<h1> Welcome to our website</h1><br><br>
 		<input type="submit" name="login" value="LOGIN">
 		<input type="submit" name="register" value="REGISTER">
