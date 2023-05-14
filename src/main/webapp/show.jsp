@@ -5,6 +5,7 @@
 <%@page import="java.sql.Connection"%>
 <%@page import="java.sql.SQLException"%>
 <%@page import="java.util.ArrayList"%>
+<%@page import="java.time.LocalDate"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -19,36 +20,47 @@
 		String name = "";
 		%>
 		<h1>Select the suitable room</h1>
-		<select name="name">
-			<%
-			int i = 0;
-			int count = Integer.parseInt(request.getParameter("count"));
-			while (i < count) {
-				name = "combo" + i;
-				String comboBoxOptions = "";
-				PrintWriter pw = response.getWriter();
-				try {
-					Connection con;
-					Class.forName("com.mysql.cj.jdbc.Driver");
-					con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test1", "root", "");
-					Statement s = con.createStatement();
-					ResultSet rs = s.executeQuery("SELECT * FROM rooms WHERE state='available'");
-
-					while (rs.next()) {
-				comboBoxOptions += "<option value='" + rs.getInt(1) + "'>" + rs.getString(2) + " Type: " + rs.getString(3)
-						+ " Price: " + rs.getString(4) + "</option>";
-					}
-					con.close();
-				} catch (ClassNotFoundException e) {
-					System.out.println("class not found");
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
+		<%
+		int i = 1;
+		int count = Integer.parseInt(request.getParameter("count"));
+		String start = "" + request.getAttribute("start");
+		String end = "" + request.getAttribute("end");
+		LocalDate startdate1 = LocalDate.parse(start);
+		LocalDate enddate1 = LocalDate.parse(end);
+		
+		while (i <= count) {
+			name = "combo" + i;
 			%>
-			<%=name%>
+		<select name=<%=name%>>
+			<%
+			String comboBoxOptions = "";
+			PrintWriter pw = response.getWriter();
+			try {
+				Connection con;
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test1", "root", "");
+				Statement s = con.createStatement();
+				ResultSet rs = s.executeQuery("SELECT * FROM Rooms WHERE RoomNumber NOT IN "
+				+ "(SELECT RoomNumber FROM Bookings WHERE " + "(CheckInDate BETWEEN " + startdate1 + " AND " + enddate1
+				+ ") OR (CheckOutDate BETWEEN " + startdate1 + " AND " + enddate1 + "))");
+
+				while (rs.next()) {
+		%>
+
+
+			<option>Room Number :<%=rs.getInt(1)%>>Room Type :<%=rs.getString(2)%>Price :<%=rs.getInt(3)%></option>
+			<%
+			}
+			con.close();
+			} catch (ClassNotFoundException e) {
+			System.out.println("class not found");
+			} catch (SQLException e) {
+			e.printStackTrace();
+			}
+		i++;
+		%>
 		</select>
 		<%
-		i++;
 		}
 		%>
 		<input type="submit" name="checkout" value="Proceed to checkout">

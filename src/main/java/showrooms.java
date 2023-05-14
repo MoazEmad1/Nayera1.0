@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.mysql.cj.Session;
+
 @WebServlet("/showrooms")
 public class showrooms extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -31,8 +33,11 @@ public class showrooms extends HttpServlet {
 		String end = request.getParameter("enddate");
 		LocalDate startdate1 = LocalDate.parse(start);
 		LocalDate enddate1 = LocalDate.parse(end);
+		
 		int count = Integer.parseInt(request.getParameter("count"));
 		request.setAttribute("c", count);
+		request.setAttribute("start", start);
+		request.setAttribute("end", end);
 
 		if (enddate1.isBefore(startdate1)) {
 			pw.print("<html><body><h1>End date must be after start date.</h1></body></html>");

@@ -1,9 +1,11 @@
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import com.mysql.cj.xdevapi.Statement;
 
@@ -78,22 +80,17 @@ public class DataBaseConnect {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			con=DriverManager.getConnection("jdbc:mysql://localhost:3306/test1","root","");
-			PreparedStatement pstmt =con.prepareStatement( "SELECT r.number\r\n"
-					+ "FROM rooms r\r\n"
-					+ "WHERE r.state = 'available'\r\n"
-					+ "AND NOT EXISTS (\r\n"
-					+ "  SELECT 1\r\n"
-					+ "  FROM booking b\r\n"
-					+ "  JOIN bookroom br ON b.id = br.bookingno\r\n"
-					+ "  WHERE r.number = br.roomno\r\n"
-					+ "  AND (b.startdate < "+startdate+" AND b.enddate > "+enddate+")\r\n"
-					+ ");");
-			ResultSet result = pstmt.executeQuery();
-		
-			if(result.next()) {
+			PreparedStatement pstmt =con.prepareStatement( "SELECT * FROM Rooms WHERE RoomNumber NOT IN " +
+                    "(SELECT RoomNumber FROM Bookings WHERE " +
+                    "(CheckInDate BETWEEN ? AND ?) OR (CheckOutDate BETWEEN ? AND ?))");
+				
+			ResultSet rs=pstmt.executeQuery();
+			if(rs.next()) {
 				return 0;
 			}
 			return 1;
+
+				
 				
 		} catch (SQLException e) {
 			e.printStackTrace();
