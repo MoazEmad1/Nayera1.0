@@ -38,7 +38,7 @@
 			try {
 				Connection con;
 				Class.forName("com.mysql.cj.jdbc.Driver");
-				con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test1", "root", "");
+				con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "");
 				Statement s = con.createStatement();
 				ResultSet rs = s.executeQuery("SELECT * FROM Rooms WHERE RoomNumber NOT IN "
 				+ "(SELECT RoomNumber FROM Bookings WHERE " + "(CheckInDate BETWEEN " + startdate1 + " AND " + enddate1

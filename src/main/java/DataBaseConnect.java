@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import com.mysql.cj.xdevapi.Statement;
 
 
 public class DataBaseConnect {
@@ -78,8 +77,8 @@ public class DataBaseConnect {
 	
 	public int search (String startdate , String enddate ){
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			con=DriverManager.getConnection("jdbc:mysql://localhost:3306/test1","root","");
+			Class.forName("com.mysql.jdbc.Driver");
+			con=DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root","");
 			PreparedStatement pstmt =con.prepareStatement( "SELECT * FROM Rooms WHERE RoomNumber NOT IN " +
                     "(SELECT RoomNumber FROM Bookings WHERE " +
                     "(CheckInDate BETWEEN ? AND ?) OR (CheckOutDate BETWEEN ? AND ?))");
