@@ -13,37 +13,37 @@ import java.sql.Statement;
 public class DataBaseConnect {
 	Connection con;
 
-	public void storeCustomer(String name,String email, String password) {
+	public void storeCustomer(String Firstname,String Lastname, String Email,String Phonenumber,String noofvisits,String username ,String password) {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			con=DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root","");
-			PreparedStatement pstmt=con.prepareStatement("INSERT INTO customer(full_name,email,password,noofvisits) VALUES('"+name+"','"+email+"','"+password+"','0')");
-			
+			PreparedStatement pstmt = con.prepareStatement("INSERT INTO Customers(FirstName,LastName,Email,Phone,NumVisits,username,password) VALUES(?,?,?,?,?,?,?)");
+			pstmt.setString(1, Firstname);
+			pstmt.setString(2, Lastname);
+			pstmt.setString(3, Email);
+			pstmt.setString(4, Phonenumber);
+			pstmt.setString(5, noofvisits);
+			pstmt.setString(6, username);
+			pstmt.setString(7, password);
 			pstmt.executeUpdate();
-			
 		}catch(SQLException e) {
 			e.printStackTrace();
 		}catch(ClassNotFoundException e) {
 			e.printStackTrace();
-
 		}
 		catch (Exception e) {
-			// TODO: handle exception
 		}
 		
 	}
 	
-	public int loginUser(String email,String password){
+	public int loginUser(String username,String password){
 		try {
 			
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			con=DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root","");
-			PreparedStatement pstmt =con.prepareStatement( "SELECT * FROM customer WHERE email = '" +email+ "' AND password = '" + password+ "'");
+			PreparedStatement pstmt =con.prepareStatement( "SELECT * FROM Customers WHERE username = '" +username+ "' AND password = '" + password+ "'");
 			ResultSet result = pstmt.executeQuery();
-
-
 			
-		
 			if(result.next()) {
 				return 1;
 			}
@@ -53,7 +53,6 @@ public class DataBaseConnect {
 			e.printStackTrace();
 		
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{
 			try {
@@ -88,7 +87,6 @@ public class DataBaseConnect {
 			e.printStackTrace();
 		
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}finally{
 			try {
@@ -102,37 +100,26 @@ public class DataBaseConnect {
 		return 1;
 		}
 	
+	public void addroom(String RoomType,String Price) {
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			con=DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root","");
+			PreparedStatement pstmt = con.prepareStatement("INSERT INTO rooms(RoomType,Price) VALUES(?,?)");
+			pstmt.setString(1, RoomType);
+			pstmt.setString(2, Price);
+		 	pstmt.executeUpdate();
+			
+		}catch(SQLException e) {
+			e.printStackTrace();
+		}catch(ClassNotFoundException e) {
+			e.printStackTrace();
+		}
+		catch (Exception e) {
+		}
 		
+	}
 	
            
-			/*public void addroom (String descripton ,String type, String price,String state ) {
-				try {
-					Class.forName("com.mysql.jdbc.Driver");
-					con=DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root","");
-					PreparedStatement pstmt=con.prepareStatement("INSERT INTO rooms (descripton,type,price,state) VALUES('"+descripton+"','"+type+"','"+price+"','"+state+"'");
-					
-					pstmt.executeUpdate();
-					
-				}catch(SQLException e) {
-					e.printStackTrace();
-				}catch(ClassNotFoundException e) {
-					e.printStackTrace();
-
-				}
-				catch (Exception e) {
-					// TODO: handle exception
-				}finally {
-					try {
-						if(con!=null) {
-							con.close();
-						}
-						System.out.println("db");
-					} catch (Exception e2) {
-						// TODO: handle exception
-					}
-				}
-			}     */  
-      
 	
 	
 }

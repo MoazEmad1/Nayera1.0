@@ -10,7 +10,7 @@
 <form action="adminaction" method="get">
 	<center>
 	<h1> Choose the needed action </h1><br><br>
-		<input type="submit" name="add" value="ADD ROOM">		
+		<input type="submit" name="addroom" value="ADD ROOM">		
 		<input type="submit" name="report" value="SHOW REPORT">
 	</center>
 </body>

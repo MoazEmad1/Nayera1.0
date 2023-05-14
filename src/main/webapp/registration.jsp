@@ -8,9 +8,14 @@
 </head>
 <body>
 	<form action="userServlet" method="post">
-		Name: <input type="text" name="name">
-		E-mail: <input type="text" name="email">
-		Password: <input type="password" name="pass">
+		FirsName: <input type="text" name="Fname">
+		LastName: <input type="text" name="Lname">
+		E-mail:        <input type="text" name="email">
+		Phone number:  <input type="number" name="phonenumber">
+		no of visits : <input type="number" name="visits">
+		username : <input type="text" name="username">
+		Password : <input type="password" name="pass">
+		
 		<input type="submit" name="signupcheck" value="register">
 	</form>
 </body>

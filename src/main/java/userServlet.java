@@ -20,7 +20,6 @@ public class userServlet extends HttpServlet {
 		else if(request.getParameter("register")!=null)
 			request.getRequestDispatcher("registration.jsp").forward(request, response);
 	}
-	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    response.setContentType("text/html");
 		DataBaseConnect db=new DataBaseConnect();
@@ -32,10 +31,10 @@ public class userServlet extends HttpServlet {
 			
 		}
 	    else if(request.getParameter("signupcheck")!=null) {
-		db.storeCustomer(request.getParameter("name"), request.getParameter("email"), request.getParameter("pass"));
-		request.getRequestDispatcher("login.jsp").forward(request, response);
-		}
 		
+	    db.storeCustomer(request.getParameter("Fname"),request.getParameter("Lname"),request.getParameter("email"),request.getParameter("phonenumber") , request.getParameter("visits"), request.getParameter("username"),request.getParameter("pass"));
+	    request.getRequestDispatcher("login.jsp").forward(request, response);	
+	    }
 		else if(request.getParameter("start")!=null) {
 			int x = db.loginUser(request.getParameter("email"),request.getParameter("pass") );
 			if(x==1) {
@@ -45,13 +44,14 @@ public class userServlet extends HttpServlet {
 				request.getRequestDispatcher("login.jsp").include(request, response);
 			}
 		}
+	}}
 		
 		
-	}
+	
 	
 	
 
-}
+
 	
 		
         

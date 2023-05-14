@@ -10,12 +10,11 @@
 <form action="adminaction" method="get">
 	<center>
 	<h1> enter the following data to add a room  </h1><br><br>
-	number	<input type="number" name="number" ><br>
-	describtion	<input type="text" name="description" ><br>
-	type	    <input type="text" name="type"><br>
-	price       <input type="text" name="price" ><br>
-	state       <input type="text" name="state">
-	<input type="submit" name="text" value="ADD">
+	
+	Type:	    <input type="text" name="type"><br>
+	Price :      <input type="text" name="price" ><br>
+	
+	<input type="submit" name="Addrooms" value="ADD">
 	</center>
 </form>
 </body>
