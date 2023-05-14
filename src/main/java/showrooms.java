@@ -45,8 +45,8 @@ public class showrooms extends HttpServlet {
 			int f = db.search(request.getParameter("startdate"), request.getParameter("enddate"));
 			if (f == 1) {
 				request.getRequestDispatcher("required.jsp").include(request, response);
-				pw.println("THERE IS NO AVAILABELE ROOMS AT THIS DATE ");
-				pw.println("YOU CAN CHOOSE ANOHER DATE");
+				pw.println("THERE IS NO AVAILABELE ROOMS AT THIS DATE YOU CAN CHOOSE ANOHER DATE ");
+
 			}
 			else {
 				request.getRequestDispatcher("show.jsp").include(request, response);

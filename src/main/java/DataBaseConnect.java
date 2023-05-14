@@ -29,16 +29,8 @@ public class DataBaseConnect {
 		}
 		catch (Exception e) {
 			// TODO: handle exception
-		}finally {
-			try {
-				if(con!=null) {
-					con.close();
-				}
-				System.out.println("db");
-			} catch (Exception e2) {
-				// TODO: handle exception
-			}
 		}
+		
 	}
 	
 	public int loginUser(String email,String password){
@@ -78,13 +70,13 @@ public class DataBaseConnect {
 	
 	public int search (String startdate , String enddate ){
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 			con=DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root","");
 			Statement s = con.createStatement();
 			ResultSet rs = s.executeQuery("SELECT * FROM Rooms WHERE RoomNumber NOT IN "
 			+ "(SELECT RoomNumber FROM Bookings WHERE " + "(CheckInDate BETWEEN " + startdate + " AND " + enddate
 			+ ") OR (CheckOutDate BETWEEN " + startdate + " AND " + enddate + "))");
-				
+			System.out.println(startdate+" "+enddate);
 			if(rs.next()) {
 				return 0;
 			}
@@ -105,8 +97,10 @@ public class DataBaseConnect {
 			} catch (final SQLException e) {
 				e.printStackTrace();
 			}
-			return 1;
-		}}
+			
+		}
+		return 1;
+		}
 	
 		
 	
