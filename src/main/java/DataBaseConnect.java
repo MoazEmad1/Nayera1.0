@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.sql.Statement;
 
 
 
@@ -79,11 +80,11 @@ public class DataBaseConnect {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			con=DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root","");
-			PreparedStatement pstmt =con.prepareStatement( "SELECT * FROM Rooms WHERE RoomNumber NOT IN " +
-                    "(SELECT RoomNumber FROM Bookings WHERE " +
-                    "(CheckInDate BETWEEN ? AND ?) OR (CheckOutDate BETWEEN ? AND ?))");
+			Statement s = con.createStatement();
+			ResultSet rs = s.executeQuery("SELECT * FROM Rooms WHERE RoomNumber NOT IN "
+			+ "(SELECT RoomNumber FROM Bookings WHERE " + "(CheckInDate BETWEEN " + startdate + " AND " + enddate
+			+ ") OR (CheckOutDate BETWEEN " + startdate + " AND " + enddate + "))");
 				
-			ResultSet rs=pstmt.executeQuery();
 			if(rs.next()) {
 				return 0;
 			}
