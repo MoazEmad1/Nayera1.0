@@ -19,6 +19,9 @@ public class userServlet extends HttpServlet {
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 		else if(request.getParameter("register")!=null)
 			request.getRequestDispatcher("registration.jsp").forward(request, response);
+		else if(request.getParameter("checkout")!=null) {
+			request.getRequestDispatcher("checkout.jsp").forward(request,response);
+		}
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 	    response.setContentType("text/html");

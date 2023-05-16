@@ -72,17 +72,17 @@ public class DataBaseConnect {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			con=DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root","");
 			Statement s = con.createStatement();
-			ResultSet rs = s.executeQuery("SELECT r.RoomNumber"
-					+ "FROM Rooms r"
-					+ "WHERE r.RoomNumber NOT IN ("
-					+ "    SELECT b.RoomNumber"
-					+ "    FROM Bookings b"
-					+ "    WHERE b.CheckInDate < '"+startdate+"' AND b.CheckOutDate > '"+enddate+")'");
+			ResultSet rs = s.executeQuery("SELECT * FROM Rooms r WHERE r.RoomNumber NOT IN "
+					+ "(SELECT b.RoomNumber FROM Bookings b WHERE (b.CheckInDate <= '" + startdate + "' AND b.CheckOutDate > '" + enddate
+					+ "') OR (b.CheckInDate < '" + startdate + "' AND b.CheckOutDate >= '" + enddate
+					+ "') OR (b.CheckInDate >= '"+ startdate + "' AND b.CheckOutDate < '"+enddate+"'))");
 			System.out.println(startdate+" "+enddate);
+			
 			if(rs.next()) {
 				return 0;
 			}
-			return 1;
+			else
+				return 1;
 				
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -117,10 +117,13 @@ public class DataBaseConnect {
 		}
 		catch (Exception e) {
 		}
-		
 	}
 	
-           
 	
+	}
+		
+
+
+
 	
-}
+

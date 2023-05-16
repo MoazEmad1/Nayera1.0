@@ -34,7 +34,7 @@ public class showrooms extends HttpServlet {
 		LocalDate enddate1 = LocalDate.parse(end);
 		
 		int count = Integer.parseInt(request.getParameter("count"));
-		request.setAttribute("c", count);
+//		request.setAttribute("count", count);
 		request.setAttribute("start", start);
 		request.setAttribute("end", end);
 
@@ -46,7 +46,6 @@ public class showrooms extends HttpServlet {
 			if (f == 1) {
 				request.getRequestDispatcher("required.jsp").include(request, response);
 				pw.println("THERE IS NO AVAILABELE ROOMS AT THIS DATE YOU CAN CHOOSE ANOHER DATE ");
-
 			}
 			else {
 				request.getRequestDispatcher("show.jsp").include(request, response);

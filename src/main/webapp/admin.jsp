@@ -11,7 +11,12 @@
 	<center>
 	<h1> Choose the needed action </h1><br><br>
 		<input type="submit" name="addroom" value="ADD ROOM">		
-		<input type="submit" name="report" value="SHOW REPORT">
+		<input type="submit" name="report1" value="SHOW RESERVED ROOMS ">
+		<br><br>
+		<br><br>
+		<br><br>
+		<input type="submit" name="logout" value="LOGOUT ">
+
 	</center>
 </body>
 </html>
