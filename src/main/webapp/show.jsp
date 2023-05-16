@@ -40,9 +40,10 @@
 				Class.forName("com.mysql.cj.jdbc.Driver");
 				con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "");
 				Statement s = con.createStatement();
-				ResultSet rs = s.executeQuery("SELECT * FROM Rooms WHERE RoomNumber NOT IN "
-				+ "(SELECT RoomNumber FROM Bookings WHERE " + "(CheckInDate BETWEEN " + startdate1 + " AND " + enddate1
-				+ ") OR (CheckOutDate BETWEEN " + startdate1 + " AND " + enddate1 + "))");
+				ResultSet rs = s.executeQuery("SELECT * FROM Rooms r WHERE r.RoomNumber NOT IN "
+				+ "(SELECT b.RoomNumber FROM Bookings b WHERE (b.CheckInDate <= '" + startdate1 + "' AND b.CheckOutDate > '" + enddate1
+				+ "') OR (b.CheckInDate < '" + startdate1 + "' AND b.CheckOutDate >= '" + enddate1 
+				+ "') OR (b.CheckInDate >= '"+ startdate1 + "' AND b.CheckOutDate < '"+enddate1+"'))");
 
 				while (rs.next()) {
 		%>
