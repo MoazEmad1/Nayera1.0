@@ -49,7 +49,6 @@
 		<h1>Select the suitable room</h1>
 		<%
 		int i = 1;
-		
 		String start = "" + request.getAttribute("start");
 		String end = "" + request.getAttribute("end");
 		LocalDate startdate1 = LocalDate.parse(start);

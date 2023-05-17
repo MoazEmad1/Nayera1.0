@@ -23,7 +23,8 @@ try {
     Class.forName("com.mysql.cj.jdbc.Driver");
     con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "");
 
-    String query = "SELECT RoomNumber FROM bookings WHERE CheckInDate IS NOT NULL AND CheckOutDate IS NOT NULL";
+    String query = "SELECT RoomNumber FROM bookings WHERE CheckInDate IS NOT NULL  AND CheckOutDate IS NOT NULL AND MONTH(CheckInDate) = MONTH(GETDATE()) AND MONTH(CheckOutDate) = MONTH(GETDATE())";
+    		   		  
     Statement statement = con.createStatement();
     ResultSet resultSet = statement.executeQuery(query);
 
