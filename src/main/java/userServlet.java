@@ -18,9 +18,15 @@ public class userServlet extends HttpServlet {
 		     if(request.getParameter("login")!=null)
 			    request.getRequestDispatcher("login.jsp").forward(request, response);
 		else if(request.getParameter("register")!=null)
+<<<<<<< HEAD
 		     	request.getRequestDispatcher("registration.jsp").forward(request, response);
 		else if(request.getParameter("checkout")!=null) {
 			    request.getRequestDispatcher("checkout.jsp").forward(request,response);
+=======
+			request.getRequestDispatcher("registration.jsp").forward(request, response);
+		else if(request.getParameter("confirm")!=null) {
+			request.getRequestDispatcher("addBooking.jsp").forward(request, response);
+>>>>>>> 9980e2b5e38bde231b69ccb457102e3d6abd18b8
 		}
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -40,7 +46,8 @@ public class userServlet extends HttpServlet {
 	    }
 		else if(request.getParameter("start")!=null) {
 			int x = db.loginUser(request.getParameter("email"),request.getParameter("pass") );
-			if(x==1) {
+			if(x!=0) {
+				request.setAttribute("id", x);
 				request.getRequestDispatcher("required.jsp").forward(request, response);}
 			else {
 				pw.println("username and pass are not found ");

@@ -10,6 +10,10 @@
 <body>
 <form action="showrooms" method="post">
 	<center>
+	<%
+	int id=Integer.parseInt(""+request.getAttribute("id"));
+	session.setAttribute("id", id);
+	%>
 	<h1> PLEASE ENTER HERE START AND END DATE OF YOUR TRIP <br><br>
 		start date <input type = "date" placeholder="yyyy-mm-dd" name="startdate" >
 		end date <input type = "date"   placeholder="yyyy-mm-dd" name="enddate" ><br>
