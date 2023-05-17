@@ -18,15 +18,10 @@ public class userServlet extends HttpServlet {
 		     if(request.getParameter("login")!=null)
 			    request.getRequestDispatcher("login.jsp").forward(request, response);
 		else if(request.getParameter("register")!=null)
-<<<<<<< HEAD
 		     	request.getRequestDispatcher("registration.jsp").forward(request, response);
 		else if(request.getParameter("checkout")!=null) {
 			    request.getRequestDispatcher("checkout.jsp").forward(request,response);
-=======
-			request.getRequestDispatcher("registration.jsp").forward(request, response);
-		else if(request.getParameter("confirm")!=null) {
-			request.getRequestDispatcher("addBooking.jsp").forward(request, response);
->>>>>>> 9980e2b5e38bde231b69ccb457102e3d6abd18b8
+
 		}
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -54,7 +49,8 @@ public class userServlet extends HttpServlet {
 				request.getRequestDispatcher("login.jsp").include(request, response);
 			}
 		}
-	}}
+	}
+	}
 		
 		
 	
