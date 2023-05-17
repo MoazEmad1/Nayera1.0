@@ -26,8 +26,8 @@
 	}
 	%>
 	<h1>Summation = <%=sum %></h1>
-<form action = "userservlet">
-<input type ="submit" name ="confirm" value ="confirm">
+<form action = "userservlet" method="get">
+<input type ="submit" name ="confirm" value ="Confirm">
 </center>
 </form>
 </body>

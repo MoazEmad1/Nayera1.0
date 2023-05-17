@@ -45,7 +45,9 @@ public class DataBaseConnect {
 			ResultSet result = pstmt.executeQuery();
 			
 			if(result.next()) {
-				return 1;
+				int id=result.getInt("CustomerID");
+				
+				return id;
 			}
 			return 0;
 				
