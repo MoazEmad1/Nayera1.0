@@ -54,6 +54,8 @@
 		LocalDate startdate1 = LocalDate.parse(start);
 		LocalDate enddate1 = LocalDate.parse(end);
 		session.setAttribute("count", count);
+		session.setAttribute("startdate", startdate1);
+		session.setAttribute("enddate", enddate1);
 		while (i <= count) {
 			name = "combo" + i;
 			%>
@@ -64,7 +66,7 @@
 			try {
 				Connection con;
 				Class.forName("com.mysql.cj.jdbc.Driver");
-				con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test", "root", "");
+				con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test1", "root", "");
 				Statement s = con.createStatement();
 				ResultSet rs = s.executeQuery("SELECT * FROM Rooms r WHERE r.RoomNumber NOT IN "
 				+ "(SELECT b.RoomNumber FROM Bookings b WHERE (b.CheckInDate <= '" + startdate1 + "' AND b.CheckOutDate >= '" + enddate1

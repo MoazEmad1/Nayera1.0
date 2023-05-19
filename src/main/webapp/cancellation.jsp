@@ -1,8 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-
-<%@page import="java.io.PrintWriter"%>
+<%@ page language="java" contentType="text/html; charset=windows-1256"
+	pageEncoding="windows-1256"%>
+	<%@page import="java.io.PrintWriter"%>
 <%@page import="java.sql.ResultSet"%>
 <%@page import="java.sql.DriverManager"%>
 <%@page import="java.sql.Statement"%>
@@ -11,29 +9,37 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.time.LocalDate"%>
 <%@page import="java.io.PrintWriter"%>
-
-
-<% 
-response.setContentType("text/html");
-PrintWriter pw = response.getWriter();
-out.println("<html><body>");
-
-Connection con = null;
-try {
+	
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="windows-1256">
+<title>Insert title here</title>
+</head>
+<body>
+	<%
+	// TODO show the upcoming bookings only
+	int id=(int)session.getAttribute("id");
+	Connection con = null;
+	try {
     Class.forName("com.mysql.cj.jdbc.Driver");
     con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test1", "root", "");
 
-    String query = "SELECT RoomNumber FROM bookings WHERE CheckInDate IS NOT NULL  AND CheckOutDate IS NOT NULL AND MONTH(CheckInDate) = MONTH(GETDATE()) AND MONTH(CheckOutDate) = MONTH(GETDATE())";
+    String query = "SELECT * FROM bookings WHERE CustomerID = '"+id+"'";
     		   		  
     Statement statement = con.createStatement();
     ResultSet resultSet = statement.executeQuery(query);
-
-    pw.println("<h1>Reserved Room Numbers:</h1>");
-
+%>
+	<select>
+	<% 
     while (resultSet.next()) {
-        int roomNumber = resultSet.getInt("RoomNumber");
-        pw.println("<p>Room Number: " + roomNumber + "</p>");
+        %>
+		<option>Room Number :<%=resultSet.getInt("RoomNumber")%> CheckIn Date :<%=resultSet.getString("CheckInDate")%> CheckOut Date :<%=resultSet.getString("CheckOutDate")%></option>
+        <%
     }
+	%>
+	</select>
+	<%
 
 } catch (SQLException | ClassNotFoundException e) {
     e.printStackTrace();
@@ -47,16 +53,6 @@ try {
     }
 }
 
-out.println("</body></html>");
 %>
-<html>
-<head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
-<form action="admin.jsp">
-<input type = "submit" value ="back">
-</form>
 </body>
 </html>
