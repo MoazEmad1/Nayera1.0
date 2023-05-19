@@ -7,8 +7,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Properties;
 import java.sql.Statement;
 import java.time.LocalDate;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
+import org.apache.catalina.connector.Response;
 
 public class DataBaseConnect {
 	Connection con;
@@ -146,5 +156,73 @@ public class DataBaseConnect {
 			}
 
 		}
+	}
+	public void sendEmail(String email,String pass) {
+
+		  String username="nayera2018ahmed@gmail.com";
+		  String password="aUck6IbQ5r13tWXq";
+		  
+		  Properties prop = new Properties();
+			prop.put("mail.smtp.auth" ,"true"); 
+			prop.put("mail.smtp.ssl.protokls" ,"TLSv1.2");
+			prop.put("mail.smtp.host","smtp-relay.sendinblue.com");
+			prop.put("mail.smtp.port","587");			
+			
+			Session session = Session.getDefaultInstance(prop,new javax.mail.Authenticator() {
+			protected PasswordAuthentication getPasswordAuthentication() {
+				return new PasswordAuthentication(username, password);
+			
+			}	
+			
+			});
+			session.setDebug(true);
+			try {
+				
+				Message message = new MimeMessage(session);
+				message.setFrom(new InternetAddress("hotelonlinereservation101@gmail.com"));
+				message.setRecipient(Message.RecipientType.TO,new InternetAddress(email));
+				message.setSubject("Password Retriving");
+				message.setText("Your password is "+pass);
+				Transport.send(message); 
+				
+			} catch (Exception e) {
+				
+				System.out.println("error : "+ e.getMessage());
+				
+			}
+	}
+	public boolean retrievePassword(String email) {
+		ResultSet rs = null;
+		boolean result = false;
+
+		try {
+			
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test1", "root", "");
+
+			
+				Statement s = con.createStatement();
+				String sql = "SELECT * FROM customers WHERE Email = '" + email + "'"; //search if one of admin have that email
+				rs = s.executeQuery(sql);
+				
+				if (rs.next()) { 
+					sendEmail(email,rs.getString("password")); // it will call another method to make the email sending process
+					con.close();
+					result = true;//return state of its existance in database
+				}
+				
+				con.close();
+
+			
+
+		} catch (ClassNotFoundException e) {
+			System.out.println("class not found");
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+
+		return result;
 	}
 }

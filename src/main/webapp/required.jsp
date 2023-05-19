@@ -39,7 +39,9 @@
 <body>
     <form action="showrooms" method="post">
         <h1>PLEASE ENTER HERE START AND END DATE OF YOUR TRIP</h1>
-        
+        <%
+        int id=Integer.parseInt(request.getParameter("id"));
+        session.setAttribute("id", id); %>
         <div>
             <label for="startdate">Start Date:</label>
             <input type="date" id="startdate" name="startdate">

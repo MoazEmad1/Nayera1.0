@@ -17,6 +17,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<form action="confirmCancellation.jsp">
 	<%
 	// TODO show the upcoming bookings only
 	int id=(int)session.getAttribute("id");
@@ -30,7 +31,7 @@
     Statement statement = con.createStatement();
     ResultSet resultSet = statement.executeQuery(query);
 %>
-	<select>
+	<select name="cancelCombo">
 	<% 
     while (resultSet.next()) {
         %>
@@ -54,5 +55,7 @@
 }
 
 %>
+<input type="submit" name="cancel"value="Cancel">
+</form>
 </body>
 </html>

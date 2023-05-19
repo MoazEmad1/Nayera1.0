@@ -26,7 +26,8 @@ public class userServlet extends HttpServlet {
 				request.getRequestDispatcher("required.jsp").forward(request, response);
 		else if (request.getParameter("cancel") != null) 
 			request.getRequestDispatcher("cancellation.jsp").forward(request, response);
-		
+		else if(request.getParameter("cancel")!=null)
+			request.getRequestDispatcher("confirmCancellation.jsp").forward(request, response);
 		}
 
 	
@@ -36,6 +37,36 @@ public class userServlet extends HttpServlet {
 		response.setContentType("text/html");
 		DataBaseConnect db = new DataBaseConnect();
 		PrintWriter pw = response.getWriter();
+		if(request.getParameter("forgetpassword")!=null) {
+			if(request.getParameter("email")=="")
+			{
+				request.getRequestDispatcher("ForgetPassword.jsp").include(request, response);
+			    pw.write("<p>Please enter an Email</p>");
+			}
+				
+			else
+			{
+				DataBaseConnect d = new DataBaseConnect();
+				
+				//call a method to check for the email existance
+				boolean result= d.retrievePassword(request.getParameter("email"));
+				
+				if(result==true)//works if the email is in our database
+				{
+					//redirects the user to another basic page telling him that the password is sent to his email 
+					request.getRequestDispatcher("passwordSent.jsp").forward(request, response);
+								
+				}
+				else
+				{ // works if the email doesn't exist in our database
+					request.getRequestDispatcher("ForgetPassword.jsp").include(request, response);
+				    pw.write("<p>This email isn't associated with any account</p>");
+						
+				}
+			}
+			return;
+		}
+		
 		String email = request.getParameter("email");
 		String password = request.getParameter("pass");
 		if (email.equals("admin") && password.equals("admin")) {

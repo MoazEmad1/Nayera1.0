@@ -9,8 +9,9 @@
 <body>
 	<form action="userServlet" method="post">
 		E-mail: <input type="text" name="email">
-		Password: <input type="password" name="pass">
-		<input type="submit" name="start" value="Login">
+		Password: <input type="password" name="pass"><br/>
+		<input type="submit" name="start" value="Login"><br/><br/>
+		<a href=ForgetPassword.jsp>Forget Password?</a>
 	</form>
 </body>
 </html>
