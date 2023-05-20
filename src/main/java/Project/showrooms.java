@@ -3,6 +3,8 @@ package Project;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -33,11 +35,22 @@ public class showrooms extends HttpServlet {
 		String end = request.getParameter("enddate");
 		LocalDate startdate1 = LocalDate.parse(start);
 		LocalDate enddate1 = LocalDate.parse(end);
+	    LocalDate currentDate = LocalDate.now();
+	    int count = Integer.parseInt(request.getParameter("count"));
+	    int[] roomscheck;
+
+	    if(currentDate.isAfter(startdate1)||currentDate.isAfter(enddate1) || currentDate.equals(startdate1)|| currentDate.equals(enddate1)) {
+	    	pw.println("<html><body><h1>THE START OR END DATE YOU HAVE ENTERED IS INVALID PLEASE REENTER IT AGIN</h1></body></html>");
+	    	request.getRequestDispatcher("required.jsp").include(request, response);
+	    	return;
+	    	}      
+	    
+	    
+	    
 		
-		int count = Integer.parseInt(request.getParameter("count"));
-//		request.setAttribute("count", count);
 		request.setAttribute("start", start);
 		request.setAttribute("end", end);
+		
 
 		if (enddate1.isBefore(startdate1)) {
 			pw.print("<html><body><h1>End date must be after start date.</h1></body></html>");

@@ -12,18 +12,30 @@
 	int count=Integer.parseInt(""+session.getAttribute("count"));
 	int i=0;
 	int sum=0;
+	int j=0;
+	System.out.println(count);
+
+	int arr[]=new int[count];
 	while(i!=count){
-		String outs=request.getParameter("combo"+(i+1));
+		String outs=null;
+		if(count==1){
+			outs=request.getParameter("combo1");
+			System.out.println("hello");
+		}
+		else{
+			outs=request.getParameter("combo"+(i+1));
+		}
 		int colonIndex = outs.indexOf(":");
         String extractedString = outs.substring(colonIndex + 1).trim();
 		
-        int j=0;
+        j=0;
         String Srno="";
 		while(extractedString.charAt(j)>=48&&extractedString.charAt(j)<=57){
 			Srno+=extractedString.charAt(j);
 			j++;
 		}
 		int rno=Integer.parseInt(Srno);
+		arr[i]=rno;
         extractedString = extractedString.substring(colonIndex + 1).trim();
         j=0;
         String type="";
@@ -34,15 +46,38 @@
         extractedString = extractedString.substring(colonIndex + 1).trim();
         extractedString = extractedString.substring(1);
 		System.out.println(extractedString);
-		int price=Integer.parseInt(extractedString);
+		double price=Double.parseDouble(extractedString);
         System.out.println(price);
 		
-		price=price+price*(26/100);
+		price=price+(price*(26.0/100.0));
 		sum+=price;
 		%>
 		<h1>Room number : <%=rno %> Room Type : <%=type %> Price : <%=price %></h1><br/>
 		<%
 		i++;
+	}
+	j=0;
+	int flag=0;
+	while(j!=(count-1)){
+		if(arr[j]==arr[j+1]){
+			flag=1;
+		}
+		j++;
+		
+	}
+	if(flag==1){
+		%>
+			session.setAttribute("check",1);
+		 <jsp:forward page="show.jsp"/>
+		<%		
+		}
+	else if(arr[0]==arr[count-1]&&count!=1){
+
+		%>
+		session.setAttribute("check",1);
+		
+		 <jsp:forward page="show.jsp"/>
+		<%
 	}
 	%>
 	<h1>Summation = <%=sum %></h1>

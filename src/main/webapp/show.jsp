@@ -11,10 +11,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
 <script>
     function updateOptions() {
       // Get the selected value of the first combobox
@@ -40,7 +36,25 @@
       }
     }
   </script>
-  <%int count = Integer.parseInt(request.getParameter("count")); %>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+ 
+  <%
+  int count;
+  if(request.getParameter("count")!=null){
+  	count = Integer.parseInt(request.getParameter("count"));
+  	session.setAttribute("count", count);
+  }else{
+	  %>
+	  <h1>YOU CANNOT CHOOSE THE SAME ROOM MORE THAN ONE TIME</h1>
+	  <%
+	  	count = Integer.parseInt(""+session.getAttribute("count"));
+
+  }
+  %>
 	<form action="checkout.jsp">
 
 		<%
@@ -49,13 +63,23 @@
 		<h1>Select the suitable room</h1>
 		<%
 		int i = 1;
-		String start = "" + request.getAttribute("start");
-		String end = "" + request.getAttribute("end");
-		LocalDate startdate1 = LocalDate.parse(start);
-		LocalDate enddate1 = LocalDate.parse(end);
-		session.setAttribute("count", count);
-		session.setAttribute("startdate", startdate1);
-		session.setAttribute("enddate", enddate1);
+		String start;
+		String end;
+		LocalDate startdate1=null;
+		LocalDate enddate1=null;
+		if(request.getAttribute("start")!=null){
+			start = "" + request.getAttribute("start");
+			end = "" + request.getAttribute("end");
+			System.out.println(start);
+			startdate1 = LocalDate.parse(start);
+			enddate1 = LocalDate.parse(end);
+			session.setAttribute("startdate", startdate1);
+			session.setAttribute("enddate", enddate1);
+		}else{
+			startdate1=(LocalDate)session.getAttribute("startdate");
+			enddate1=(LocalDate)session.getAttribute("enddate");
+
+		}
 		while (i <= count) {
 			name = "combo" + i;
 			%>
