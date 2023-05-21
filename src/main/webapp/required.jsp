@@ -3,10 +3,11 @@
 <html>
 <head>
     <meta charset="ISO-8859-1">
-    <title>Insert title here</title>
+    <title>Reservation Form</title>
     <style>
         body {
             font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
         }
         
         form {
@@ -15,7 +16,7 @@
         }
         
         h1 {
-            color: black;
+            color: #333333;
         }
         
         input[type="date"], input[type="submit"], input[type="radio"] {
@@ -25,14 +26,15 @@
         }
         
         input[type="submit"] {
-            background-color: black;
-            color: white;
+            background-color: #337ab7;
+            color: #ffffff;
             border: none;
             cursor: pointer;
+            border-radius: 5px;
         }
         
         label, input[type="radio"] {
-            color: black;
+            color: #333333;
         }
     </style>
 </head>
