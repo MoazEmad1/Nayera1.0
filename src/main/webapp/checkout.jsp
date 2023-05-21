@@ -7,20 +7,19 @@
 <title>Insert title here</title>
 </head>
 <body>
+
 <center>
 <%
 	int count=Integer.parseInt(""+session.getAttribute("count"));
 	int i=0;
 	int sum=0;
 	int j=0;
-	System.out.println(count);
 
 	int arr[]=new int[count];
 	while(i!=count){
 		String outs=null;
 		if(count==1){
 			outs=request.getParameter("combo1");
-			System.out.println("hello");
 		}
 		else{
 			outs=request.getParameter("combo"+(i+1));
@@ -45,9 +44,9 @@
 		}
         extractedString = extractedString.substring(colonIndex + 1).trim();
         extractedString = extractedString.substring(1);
-		System.out.println(extractedString);
+        String partString[]=extractedString.split(":");
+        extractedString=partString[1].trim();
 		double price=Double.parseDouble(extractedString);
-        System.out.println(price);
 		
 		price=price+(price*(26.0/100.0));
 		sum+=price;

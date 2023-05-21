@@ -37,7 +37,6 @@ public class showrooms extends HttpServlet {
 		LocalDate enddate1 = LocalDate.parse(end);
 	    LocalDate currentDate = LocalDate.now();
 	    int count = Integer.parseInt(request.getParameter("count"));
-	    int[] roomscheck;
 
 	    if(currentDate.isAfter(startdate1)||currentDate.isAfter(enddate1) || currentDate.equals(startdate1)|| currentDate.equals(enddate1)) {
 	    	pw.println("<html><body><h1>THE START OR END DATE YOU HAVE ENTERED IS INVALID PLEASE REENTER IT AGIN</h1></body></html>");
@@ -57,7 +56,7 @@ public class showrooms extends HttpServlet {
 			request.getRequestDispatcher("required.jsp").include(request, response);
 		} else {
 			int f = db.search(request.getParameter("startdate"), request.getParameter("enddate"));
-			if (f == 1) {
+			if (f == 0) {
 				request.getRequestDispatcher("required.jsp").include(request, response);
 				pw.println("THERE IS NO AVAILABELE ROOMS AT THIS DATE YOU CAN CHOOSE ANOHER DATE ");
 			}

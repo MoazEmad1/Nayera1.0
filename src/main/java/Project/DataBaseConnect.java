@@ -89,12 +89,12 @@ public class DataBaseConnect {
 					+ "' AND b.CheckOutDate > '" + enddate + "') OR (b.CheckInDate < '" + startdate
 					+ "' AND b.CheckOutDate >= '" + enddate + "') OR (b.CheckInDate >= '" + startdate
 					+ "' AND b.CheckOutDate < '" + enddate + "'))");
-			System.out.println(startdate + " " + enddate);
+			
 
 			if (rs.next()) {
-				return 0;
-			} else
 				return 1;
+			} else
+				return 0;
 
 		} catch (SQLException e) {
 			e.printStackTrace();
