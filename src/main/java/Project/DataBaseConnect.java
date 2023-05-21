@@ -202,7 +202,7 @@ public class DataBaseConnect {
 
 			
 				Statement s = con.createStatement();
-				String sql = "SELECT * FROM customers WHERE Email = '" + email + "'"; //search if one of admin have that email
+				String sql = "SELECT * FROM customers WHERE Email = '" + email + "'"; //search if one of customers have that email
 				rs = s.executeQuery(sql);
 				
 				if (rs.next()) { 

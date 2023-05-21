@@ -42,6 +42,9 @@ public class adminaction extends HttpServlet {
 			
 		if(request.getParameter("report1")!=null) {
 			request.getRequestDispatcher("report1.jsp").forward(request, response);}
+		
+		else if(request.getParameter("report2")!=null) {
+			request.getRequestDispatcher("report2jsp.jsp").forward(request, response);}
 		else if(request.getParameter("logout")!=null) {
 			request.getRequestDispatcher("logout.jsp").forward(request, response);
 			

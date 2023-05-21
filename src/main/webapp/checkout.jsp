@@ -48,7 +48,7 @@
         extractedString=partString[1].trim();
 		double price=Double.parseDouble(extractedString);
 		
-		price=price+(price*(26.0/100.0));
+		price=(price+(price*(26.0/100.0)));
 		sum+=price;
 		%>
 		<h1>Room number : <%=rno %> Room Type : <%=type %> Price : <%=price %></h1><br/>

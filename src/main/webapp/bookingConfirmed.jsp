@@ -28,9 +28,6 @@
 	<h1>Order has been confirmed</h1><br/>
 	<%
 	%>
-<form action="logout.jsp">
 
-<input type="submit" name ="logout" value="logout">
-</form>
 </body>
 </html>

@@ -50,6 +50,7 @@
     <form action="adminaction" method="get">
       <input class="btn" type="submit" name="addroom" value="ADD ROOM">
       <input class="btn" type="submit" name="report1" value="SHOW RESERVED ROOMS">
+      <input class="btn" type="submit" name="report2" value="SHOW NUMBER OF BOOKING FOR EACH ROOM">
       <br><br>
       <br><br>
       <br><br>
