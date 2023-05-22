@@ -10,7 +10,7 @@
 <h1> CHOOSE YOUR SERVICE </h1>
 <form action="userServlet" method ="get">
 <% int id=(int)request.getAttribute("id");
-        session.setAttribute("id", id);%>
+        session.setAttribute("id", id);%> 
 <input type="submit" name="cancel" value ="cancellation">
 <input type="submit" name="reserve" value ="reservation">
 </form>

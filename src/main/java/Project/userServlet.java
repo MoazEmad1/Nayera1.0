@@ -24,9 +24,8 @@ public class userServlet extends HttpServlet {
 			request.getRequestDispatcher("bookingConfirmed.jsp").forward(request, response);
 		else if (request.getParameter("reserve") != null) 
 				request.getRequestDispatcher("required.jsp").forward(request, response);
-		else if (request.getParameter("cancel") != null) 
-			request.getRequestDispatcher("cancellation.jsp").forward(request, response);
-		//something feels wrong
+		
+	
 		else if(request.getParameter("cancel")!=null)
 			request.getRequestDispatcher("confirmCancellation.jsp").forward(request, response);
 		}
