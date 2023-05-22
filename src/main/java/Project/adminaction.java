@@ -33,9 +33,18 @@ public class adminaction extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		DataBaseConnect db = new DataBaseConnect();
 		PrintWriter pw = response.getWriter();
+		response.setContentType("text/html");
 		if(request.getParameter("addroom")!=null) {
 		request.getRequestDispatcher("addroom.jsp").forward(request, response);}
-		if(request.getParameter("Addrooms")!=null) {
+		
+		String addRoomsValue = request.getParameter("Addrooms");
+		if (addRoomsValue == null || addRoomsValue.isEmpty()) {
+		    request.getRequestDispatcher("addroom.jsp").include(request, response);
+		    pw.println("the Addrooms field is empty");
+		}
+
+		
+		else if(request.getParameter("Addrooms")!=null) {
 		db.addroom(request.getParameter("type"),request.getParameter("price"));
         request.getRequestDispatcher("addedjsp.jsp").forward(request, response);
 		}
@@ -45,6 +54,7 @@ public class adminaction extends HttpServlet {
 		
 		else if(request.getParameter("report2")!=null) {
 			request.getRequestDispatcher("report2jsp.jsp").forward(request, response);}
+		
 		else if(request.getParameter("logout")!=null) {
 			request.getRequestDispatcher("logout.jsp").forward(request, response);
 			
