@@ -15,12 +15,13 @@
 	int i=0;
 	int sum=0;
 	int j=0;
+	int duration = 0;
 	String startdate1=""+session.getAttribute("startdate");	
 	String enddate1=""+session.getAttribute("enddate");
 	System.out.println(startdate1);
 	System.out.println(enddate1);
 	DataBaseConnect db=new DataBaseConnect();
-	int duration;
+	
 	int arr[]=new int[count];
 	while(i!=count){
 		String outs=null;
