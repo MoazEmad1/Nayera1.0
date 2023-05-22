@@ -43,11 +43,7 @@ public class showrooms extends HttpServlet {
 	    	request.getRequestDispatcher("required.jsp").include(request, response);
 	    	return;
 	    	}      
-	    
-	    
-	    
-		
-		request.setAttribute("start", start);
+	    request.setAttribute("start", start);
 		request.setAttribute("end", end);
 		
 

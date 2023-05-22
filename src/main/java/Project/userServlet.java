@@ -24,9 +24,10 @@ public class userServlet extends HttpServlet {
 			request.getRequestDispatcher("bookingConfirmed.jsp").forward(request, response);
 		else if (request.getParameter("reserve") != null) 
 				request.getRequestDispatcher("required.jsp").forward(request, response);
-		
-	
-		else if(request.getParameter("cancel")!=null)
+		else if(request.getParameter("cancelreserve")!=null) {
+			request.getRequestDispatcher("cancellation.jsp").forward(request, response);
+		}
+	    else if(request.getParameter("cancel")!=null)
 			request.getRequestDispatcher("confirmCancellation.jsp").forward(request, response);
 		}
 
@@ -82,6 +83,7 @@ public class userServlet extends HttpServlet {
 			int x = db.loginUser(request.getParameter("email"), request.getParameter("pass"));
 			if (x != 0) {
 				request.setAttribute("id", x);
+				
 				request.getRequestDispatcher("cancelorbook.jsp").forward(request, response);
 			} else {
 				pw.println("username and pass are not found ");

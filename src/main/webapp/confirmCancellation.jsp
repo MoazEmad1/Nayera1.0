@@ -37,7 +37,7 @@
 		Statement s = con.createStatement();
 		
 		s.executeUpdate("DELETE FROM bookings WHERE CustomerID = '"+id+"' AND RoomNumber = '"+rno+"'");
-
+		
 		con.close();
 
 			} catch (SQLException e) {

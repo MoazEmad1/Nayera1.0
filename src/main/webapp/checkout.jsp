@@ -1,20 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
+    <%@page import="java.time.LocalDate"%>
+    <%@page import="Project.DataBaseConnect"%>
 <html>
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
 </head>
 <body>
-
 <center>
 <%
 	int count=Integer.parseInt(""+session.getAttribute("count"));
 	int i=0;
 	int sum=0;
 	int j=0;
-
+	String startdate1=""+session.getAttribute("startdate");	
+	String enddate1=""+session.getAttribute("enddate");
+	System.out.println(startdate1);
+	System.out.println(enddate1);
+	DataBaseConnect db=new DataBaseConnect();
+	int duration;
 	int arr[]=new int[count];
 	while(i!=count){
 		String outs=null;
@@ -47,8 +53,10 @@
         String partString[]=extractedString.split(":");
         extractedString=partString[1].trim();
 		double price=Double.parseDouble(extractedString);
-		
-		price=(price+(price*(26.0/100.0)));
+		if(i==0){
+		duration=db.getStayDuration(startdate1,enddate1,(int)session.getAttribute("id"),rno);
+		}
+		price = (price + (price * (26.0 / 100.0))) * duration;
 		sum+=price;
 		%>
 		<h1>Room number : <%=rno %> Room Type : <%=type %> Price : <%=price %></h1><br/>

@@ -9,6 +9,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Properties;
 import java.sql.Statement;
+import java.time.Duration;
 import java.time.LocalDate;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -225,4 +226,31 @@ public class DataBaseConnect {
 
 		return result;
 	}
+	public int getStayDuration(String startdate, String enddate,int id,int rno) {
+	    try {
+	        Class.forName("com.mysql.cj.jdbc.Driver");
+	        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test1", "root", "");
+	        Statement s = con.createStatement();
+	        ResultSet rs = s.executeQuery("SELECT DATEDIFF('" + enddate + "', '" + startdate + "') AS Duration FROM bookings WHERE CustomerID = '"+id+"' AND RoomNumber = '"+rno+"';");
+	        if (rs.next()) {
+	        	 int Duration =rs.getInt("Duration");
+	            return Duration;
+	        } else {
+	            return 0;
+	        }
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	    } catch (ClassNotFoundException e) {
+	        e.printStackTrace();
+	    } finally {
+	        try {
+	            if (con != null)
+	                con.close();
+	        } catch (final SQLException e) {
+	            e.printStackTrace();
+	        }
+	    }
+	    return 0;
+	}
+
 }

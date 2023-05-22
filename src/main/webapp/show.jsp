@@ -42,24 +42,7 @@
             border-radius: 5px;
         }
     </style>
-    <script>
-        function updateOptions() {
-            var selectedValue = document.getElementById("combo1").value;
-            var comboboxes = document.getElementsByClassName("customCombobox");
-            for (var i = 0; i < comboboxes.length; i++) {
-                var combobox = comboboxes[i];
-                var options = combobox.options;
-                for (var j = 0; j < options.length; j++) {
-                    var option = options[j];
-                    if (option.value === selectedValue) {
-                        option.disabled = true;
-                    } else {
-                        option.disabled = false;
-                    }
-                }
-            }
-        }
-    </script>
+
 </head>
 <body>
     <%
