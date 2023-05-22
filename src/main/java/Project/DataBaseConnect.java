@@ -122,7 +122,7 @@ public class DataBaseConnect {
 			pstmt.setString(1, RoomType);
 			pstmt.setString(2, Price);
 			pstmt.executeUpdate();
-
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {

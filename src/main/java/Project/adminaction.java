@@ -38,13 +38,16 @@ public class adminaction extends HttpServlet {
 		request.getRequestDispatcher("addroom.jsp").forward(request, response);
 		}
 		else if(request.getParameter("Addrooms")!=null) {
-			if((request.getParameter("type")==null)||(request.getParameter("price")==null)) {
-				pw.print("Please fill all fields");
-				request.getRequestDispatcher("addroom.jsp").include(request, response);
-			}
-			else {
+			if((request.getParameter("type")!=null)&&(request.getParameter("price")!=null)) {
 				db.addroom(request.getParameter("type"), request.getParameter("price"));
 				request.getRequestDispatcher("addedjsp.jsp").forward(request, response);
+				}
+			
+			else {
+				pw.print("Please fill all fields");
+				request.getRequestDispatcher("addroom.jsp").include(request, response);
+				
+				
 			}
 		}
 			
