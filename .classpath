@@ -13,17 +13,17 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="C:/Users/utente/Downloads/javax.mail-1.4.4.jar">
+	<classpathentry kind="lib" path="C:/Users/moaze/Downloads/Compressed/mysql-connector-j-8.0.33/mysql-connector-j-8.0.33.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/utente/Downloads/mysql-connector-java-8.0.11.jar">
+	<classpathentry kind="lib" path="E:/activation.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="C:/Users/utente/Downloads/activation (1).jar">
+	<classpathentry kind="lib" path="E:/javax.mail-1.4.4.jar">
 		<attributes>
 			<attribute name="org.eclipse.jst.component.dependency" value="/WEB-INF/lib"/>
 		</attributes>

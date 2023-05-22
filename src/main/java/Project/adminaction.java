@@ -35,18 +35,17 @@ public class adminaction extends HttpServlet {
 		PrintWriter pw = response.getWriter();
 		response.setContentType("text/html");
 		if(request.getParameter("addroom")!=null) {
-		request.getRequestDispatcher("addroom.jsp").forward(request, response);}
-		
-		String addRoomsValue = request.getParameter("Addrooms");
-		if (addRoomsValue == null || addRoomsValue.isEmpty()) {
-		    request.getRequestDispatcher("addroom.jsp").include(request, response);
-		    pw.println("the Addrooms field is empty");
+		request.getRequestDispatcher("addroom.jsp").forward(request, response);
 		}
-
-		
 		else if(request.getParameter("Addrooms")!=null) {
-		db.addroom(request.getParameter("type"),request.getParameter("price"));
-        request.getRequestDispatcher("addedjsp.jsp").forward(request, response);
+			if((request.getParameter("type")==null)||(request.getParameter("price")==null)) {
+				pw.print("Please fill all fields");
+				request.getRequestDispatcher("addroom.jsp").include(request, response);
+			}
+			else {
+				db.addroom(request.getParameter("type"), request.getParameter("price"));
+				request.getRequestDispatcher("addedjsp.jsp").forward(request, response);
+			}
 		}
 			
 		if(request.getParameter("report1")!=null) {
