@@ -1,3 +1,4 @@
+<%@page import="com.mysql.cj.protocol.x.SyncFlushDeflaterOutputStream"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -20,6 +21,7 @@
 	String enddate1=""+session.getAttribute("enddate");
 	System.out.println(startdate1);
 	System.out.println(enddate1);
+	System.out.println(duration);
 	DataBaseConnect db=new DataBaseConnect();
 	
 	int arr[]=new int[count];
@@ -57,7 +59,7 @@
 		if(i==0){
 		duration=db.getStayDuration(startdate1,enddate1,(int)session.getAttribute("id"),rno);
 		}
-		price = (price + (price * (26.0 / 100.0))) * duration;
+		price = (price + (price * (26.0 / 100.0))) * duration ;
 		sum+=price;
 		%>
 		<h1>Room number : <%=rno %> Room Type : <%=type %> Price : <%=price %></h1><br/>
