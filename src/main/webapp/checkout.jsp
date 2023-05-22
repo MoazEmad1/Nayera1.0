@@ -1,9 +1,17 @@
 <%@page import="com.mysql.cj.protocol.x.SyncFlushDeflaterOutputStream"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html>
-    <%@page import="java.time.LocalDate"%>
+        <%@page import="java.time.LocalDate"%>
     <%@page import="Project.DataBaseConnect"%>
+    <%@page import="java.io.PrintWriter"%>
+<%@page import="java.sql.ResultSet"%>
+<%@page import="java.sql.DriverManager"%>
+<%@page import="java.sql.Statement"%>
+<%@page import="java.sql.Connection"%>
+<%@page import="java.sql.SQLException"%>
+<%@page import="java.util.ArrayList"%>
+<!DOCTYPE html>
+
 <html>
 <head>
 <meta charset="ISO-8859-1">
@@ -12,7 +20,8 @@
 <body>
 <center>
 <%
-	int count=Integer.parseInt(""+session.getAttribute("count"));
+	int count = Integer.parseInt(""+session.getAttribute("count"));
+	int id = (int)session.getAttribute("id");
 	int i=0;
 	int sum=0;
 	int j=0;
@@ -21,8 +30,9 @@
 	String enddate1=""+session.getAttribute("enddate");
 	System.out.println(startdate1);
 	System.out.println(enddate1);
-	System.out.println(duration);
-	DataBaseConnect db=new DataBaseConnect();
+	System.out.println(id);
+
+	Connection con;
 	
 	int arr[]=new int[count];
 	while(i!=count){
@@ -44,6 +54,27 @@
 		}
 		int rno=Integer.parseInt(Srno);
 		arr[i]=rno;
+		if(i==0){
+
+			try {
+		        Class.forName("com.mysql.cj.jdbc.Driver");
+		        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test1", "root", "");
+		        Statement s = con.createStatement();
+		        ResultSet rs = s.executeQuery("SELECT DATEDIFF('" + enddate1 + "', '" + startdate1 + "') AS Duration");
+		        
+		        if (rs.next()) {
+		        	 duration =rs.getInt("Duration");
+		        	 
+		        } else {
+		            duration=0;
+		        }
+		    } catch (SQLException e) {
+		        e.printStackTrace();
+		    } catch (ClassNotFoundException e) {
+		        e.printStackTrace();
+		    }
+		}
+		System.out.println(duration);
         extractedString = extractedString.substring(colonIndex + 1).trim();
         j=0;
         String type="";
@@ -56,9 +87,8 @@
         String partString[]=extractedString.split(":");
         extractedString=partString[1].trim();
 		double price=Double.parseDouble(extractedString);
-		if(i==0){
-		duration=db.getStayDuration(startdate1,enddate1,(int)session.getAttribute("id"),rno);
-		}
+		DataBaseConnect db=new DataBaseConnect();
+		
 		price = (price + (price * (26.0 / 100.0))) * duration ;
 		sum+=price;
 		%>

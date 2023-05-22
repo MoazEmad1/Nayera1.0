@@ -232,8 +232,10 @@ public class DataBaseConnect {
 	        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test1", "root", "");
 	        Statement s = con.createStatement();
 	        ResultSet rs = s.executeQuery("SELECT DATEDIFF('" + enddate + "', '" + startdate + "') AS Duration FROM bookings WHERE CustomerID = '"+id+"' AND RoomNumber = '"+rno+"';");
+	        
 	        if (rs.next()) {
 	        	 int Duration =rs.getInt("Duration");
+	        	 System.out.print(Duration);
 	            return Duration;
 	        } else {
 	            return 0;
