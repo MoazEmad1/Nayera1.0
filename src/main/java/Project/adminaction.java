@@ -45,6 +45,13 @@ public class adminaction extends HttpServlet {
 			else {
 				db.addroom(request.getParameter("type"), request.getParameter("price"));
 				request.getRequestDispatcher("addedjsp.jsp").forward(request, response);
+				}
+			
+			else {
+				pw.print("Please fill all fields");
+				request.getRequestDispatcher("addroom.jsp").include(request, response);
+				
+				
 			}
 		}
 			
