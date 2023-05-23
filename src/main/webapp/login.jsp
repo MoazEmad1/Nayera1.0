@@ -75,7 +75,7 @@
   <br>
   <br>
     <form action="userServlet" method="post">
-      E-mail: <input class="input-field" type="text" name="email"><br>
+      Username: <input class="input-field" type="text" name="email"><br>
       Password: <input class="input-field" type="password" name="pass"><br><br>
       <input class="btn" type="submit" name="start" value="Login"><br><br>
       <div class="forgot-password">

@@ -74,12 +74,17 @@ public class userServlet extends HttpServlet {
 			request.getRequestDispatcher("admin.jsp").forward(request, response);
 
 		} else if (request.getParameter("signupcheck") != null) {
-
-			db.storeCustomer(request.getParameter("Fname"), request.getParameter("Lname"),
+            if((request.getParameter("Fname")=="") || (request.getParameter("Lname")=="")||(request.getParameter("email")=="")||(request.getParameter("phonenumber")=="")||(request.getParameter("visits")=="")||(request.getParameter("username")=="")||(request.getParameter("password")=="")) {
+            	pw.println("fields are empty ");
+            	request.getRequestDispatcher("registration.jsp").include(request, response);
+            	
+            }
+            else {	db.storeCustomer(request.getParameter("Fname"), request.getParameter("Lname"),
 					request.getParameter("email"), request.getParameter("phonenumber"), request.getParameter("visits"),
 					request.getParameter("username"), request.getParameter("pass"));
-			request.getRequestDispatcher("login.jsp").forward(request, response);
-		} else if (request.getParameter("start") != null) {
+			request.getRequestDispatcher("login.jsp").forward(request, response);}
+		         } 
+		else if (request.getParameter("start") != null) {
 			int x = db.loginUser(request.getParameter("email"), request.getParameter("pass"));
 			if (x != 0) {
 				request.setAttribute("id", x);
